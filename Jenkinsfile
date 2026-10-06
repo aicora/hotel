@@ -36,23 +36,25 @@ pipeline {
             }
         }
 
-        stage('Laravel Setup') {
-            steps {
-                sh '''
-                    docker compose exec -T app php artisan key:generate --force
+stage('Laravel Setup') {
+    steps {
+        sh '''
+            docker compose exec -T app sh -c 'cp .env.example .env'
 
-                    docker compose exec -T app php artisan migrate --force
+            docker compose exec -T app php artisan key:generate --force
 
-                    docker compose exec -T app php artisan optimize:clear
+            docker compose exec -T app php artisan migrate --force
 
-                    docker compose exec -T app php artisan config:cache
+            docker compose exec -T app php artisan optimize:clear
 
-                    docker compose exec -T app php artisan route:cache
+            docker compose exec -T app php artisan config:cache
 
-                    docker compose exec -T app php artisan view:cache
-                '''
-            }
-        }
+            docker compose exec -T app php artisan route:cache
+
+            docker compose exec -T app php artisan view:cache
+        '''
+    }
+}
 
         stage('Verify') {
             steps {
