@@ -17,8 +17,7 @@ services:
       DB_PORT: 3306
       DB_DATABASE: hotelDB
       DB_USERNAME: hotel_admin
-      DB_PASSWORD: YOUR_RDS_PASSWORD
-
+      DB_PASSWORD: "5kunALp8qKV2WRQ"
 
   nginx:
     image: nginx:alpine
